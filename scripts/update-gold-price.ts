@@ -93,7 +93,7 @@ async function main() {
 
   // 品位別の相場表価格（田中買取価格 × 純度比率）
   const purityRatios: Record<string, number> = {
-    k24: 0.999,
+    k24: 1.0,
     k23: 0.9583,
     k22: 0.917,
     k21_6: 0.9,
@@ -139,7 +139,7 @@ async function main() {
  */
 export const goldPrice = {
   lastUpdated: "${lastUpdated}",
-  source: "田中貴金属工業 税込買取価格",
+  source: "市場税込買取価格基準",
 
   // === 金 ===
   gold: {

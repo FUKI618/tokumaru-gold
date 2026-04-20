@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-04-20T08:53:19Z",
-  "trigger_command": "cd \"/Users/fuki/Code/LP作成/徳丸商会/貴金属\" && git add -A && git commit -m \"$(cat <<'EOF'\\n相場表を田中貴金属の税込買取価格に修正、シミュレーションはマージン引き\\n\\n■ 相場表（LP表示）: 田中貴金属の「税込買取価格」をそのまま表示\\n  金 K24: ¥26,655/g、K18: ¥19,991/g\\n  Pt1000: ¥11,607/g\\n  Sv1000: ¥441/g\\n\\n■ シミュレーション: 田中買取からマージンを引いた徳丸商会の買取価格\\n  金: -2,500円（K24: ¥24,155）\\n  プラチナ: -2,500円（Pt1000: ¥9,107）\\n  シルバー: -150円（Sv1000: ¥291）\\n\\n技術変更:\\n- goldPrice.ts を market/sim の2系統に分離\\n- スクレイピングスクリプト: data1(小売)→HTML内「店頭買取価格」テキストから買取価格を取得\\n- decodeURIComponent でパスエンコード問題を修正\\n- プラチナ/シルバーのURL追加（d-platinum.php, d-silver.php）\\n\\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>\\nEOF\\n)\" && git push origin main 2>&1 | tail -3",
+  "timestamp": "2026-04-20T08:57:54Z",
+  "trigger_command": "cd \"/Users/fuki/Code/LP作成/徳丸商会/貴金属\" && git add -A && git commit -m \"$(cat <<'EOF'\\nブランド品セクション全面改修: AI画像削除→型番＋参考相場テキストに\\n\\n- AI生成ブランドバッグ画像4枚を削除（偽物感が出て逆効果）\\n- ブランド別参考相場テーブルに変更（6ブランド、各3-4モデル）:\\n  エルメス/シャネル/ルイヴィトン/ロレックス/グッチ/カルティエ\\n- 各モデルに型番＋参考買取価格幅を表示\\n- 主要買取ブランド一覧（12ブランド）追加\\n- その他ブランドをテキストで掲載\\n- 実物写真は買取実績に応じて順次掲載する構造\\n\\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>\\nEOF\\n)\" && git push origin main 2>&1 | tail -3",
   "status": "completed",
   "conclusion": "success"
 }
