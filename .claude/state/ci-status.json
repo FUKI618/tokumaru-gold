@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-04-20T07:42:43Z",
-  "trigger_command": "cd \"/Users/fuki/Code/LP作成/徳丸商会/貴金属\" && git add -A && git commit -m \"$(cat <<'EOF'\\n全面画像追加: 買取実績6+4件、状態例5件、ヒーロー背景表示、絵文字全削除\\n\\n画像なしテキストだけのスカスカLPを全面修正:\\n\\n追加画像（15枚生成+WebP変換）:\\n- 金買取実績6枚: K24ネックレス/K18リング/Pt900リング/K18ブレスレット/金貨/インゴット\\n- ブランド品実績4枚: バーキン風バッグ/チェーンショルダー/モノグラムトート/高級時計\\n- 状態例5枚: 変形/チェーン切れ/黒ずみ/刻印なし/少量\\n\\nセクション修正:\\n- ヒーロー: 背景画像+srcsetを追加（表示されていなかった）\\n- 「どんな状態でもOK」: 絵文字→写真カードに完全差替え\\n- 金買取実績セクション新設（6件+具体的金額）\\n- ブランド品買取実績セクション新設（4件+具体的金額）\\n\\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>\\nEOF\\n)\" && git push origin main 2>&1 | tail -3",
+  "timestamp": "2026-04-20T08:08:50Z",
+  "trigger_command": "cd \"/Users/fuki/Code/LP作成/徳丸商会/貴金属\" && npm run build 2>&1 | tail -3 && git add -A && git commit -m \"$(cat <<'EOF'\\n金相場テーブルをタブ切り替え式に変更（金/プラチナ/シルバー/コンビ）\\n\\n- Alpine.jsで4タブ切り替え（x-show + x-transition）\\n- 金タブ: K24〜K9 の10品位を表示（デフォルト）\\n- プラチナタブ: Pt1000〜Pt850\\n- シルバータブ: Sv1000, Sv925\\n- コンビタブ: 説明テキスト+電話CTA\\n- おたからやの参考サイトと同様のUI/UX\\n- ※見出しをスクロールで選択できます の注記追加\\n\\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>\\nEOF\\n)\" && git push origin main 2>&1 | tail -3",
   "status": "completed",
   "conclusion": "success"
 }
