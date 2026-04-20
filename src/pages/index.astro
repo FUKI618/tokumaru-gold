@@ -52,10 +52,10 @@ const goldGrades = [
 ];
 
 const ptGrades = [
-  { label: "Pt1000(純プラチナ)", price: goldPrice.platinum.pt1000 },
-  { label: "Pt950", price: goldPrice.platinum.pt950 },
-  { label: "Pt900", price: goldPrice.platinum.pt900 },
-  { label: "Pt850", price: goldPrice.platinum.pt850 },
+  { label: "Pt1000(純プラチナ)", price: goldPrice.platinum.market.pt1000 },
+  { label: "Pt950", price: goldPrice.platinum.market.pt950 },
+  { label: "Pt900", price: goldPrice.platinum.market.pt900 },
+  { label: "Pt850", price: goldPrice.platinum.market.pt850 },
 ];
 
 // 金・貴金属の買取実績
@@ -187,9 +187,9 @@ const otherBrands = "ミュウミュウ、ジミーチュウ、ゴヤール、�
           本日の金買取価格
         </div>
         <div class="text-6xl font-black text-gold-light mb-2">
-          K24: ¥{fmt(goldPrice.gold.k24)}<span class="text-2xl">/g</span>
+          K24: ¥{fmt(goldPrice.gold.tanakaBuy)}<span class="text-2xl">/g</span>
         </div>
-        <p class="text-white/60 text-sm mb-6">K18: ¥{fmt(goldPrice.gold.k18)}/g ｜ 更新: {updatedStr}</p>
+        <p class="text-white/60 text-sm mb-6">K18: ¥{fmt(goldPrice.gold.market.k18)}/g ｜ 更新: {updatedStr}</p>
         <h1 class="text-4xl lg:text-5xl font-black leading-[1.1] mb-3 tracking-tight">
           名古屋の<br><span class="text-gradient">金・ブランド品</span><br>買取なら徳丸商会
         </h1>
@@ -220,9 +220,9 @@ const otherBrands = "ミュウミュウ、ジミーチュウ、ゴヤール、�
         本日の金買取価格
       </div>
       <div class="text-4xl font-black text-gold-light mb-1">
-        K24: ¥{fmt(goldPrice.gold.k24)}<span class="text-lg">/g</span>
+        K24: ¥{fmt(goldPrice.gold.tanakaBuy)}<span class="text-lg">/g</span>
       </div>
-      <p class="text-white/50 text-[11px] mb-4">K18: ¥{fmt(goldPrice.gold.k18)}/g ｜ 更新: {updatedStr}</p>
+      <p class="text-white/50 text-[11px] mb-4">K18: ¥{fmt(goldPrice.gold.market.k18)}/g ｜ 更新: {updatedStr}</p>
       <p class="text-[2.1rem] font-black leading-[1.15] mb-3" role="heading" aria-level="1">
         名古屋の<br><span class="text-gradient">金・ブランド品</span><br>買取なら徳丸商会
       </p>
@@ -413,12 +413,17 @@ const otherBrands = "ミュウミュウ、ジミーチュウ、ゴヤール、�
       <!-- 金テーブル -->
       <div x-show="tab==='gold'" x-transition>
         <div class="divide-y divide-border">
-          {goldGrades.map((g) => (
-            <div class="flex items-center justify-between px-5 py-3.5 hover:bg-gold/5 transition-colors">
-              <span class="text-text text-sm font-bold">{g.label}</span>
-              <span class="text-dark font-black text-lg md:text-xl">{fmt(goldPrice.gold[g.key as keyof typeof goldPrice.gold] as number)}<span class="text-sm font-bold ml-0.5">円</span></span>
-            </div>
-          ))}
+          {goldGrades.map((g) => {
+            const price = g.key === "k24"
+              ? goldPrice.gold.tanakaBuy
+              : goldPrice.gold.market[g.key as keyof typeof goldPrice.gold.market] as number;
+            return (
+              <div class="flex items-center justify-between px-5 py-3.5 hover:bg-gold/5 transition-colors">
+                <span class="text-text text-sm font-bold">{g.label}</span>
+                <span class="text-dark font-black text-lg md:text-xl">{fmt(price)}<span class="text-sm font-bold ml-0.5">円</span></span>
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -439,11 +444,11 @@ const otherBrands = "ミュウミュウ、ジミーチュウ、ゴヤール、�
         <div class="divide-y divide-border">
           <div class="flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 transition-colors">
             <span class="text-text text-sm font-bold">Sv1000(純銀)</span>
-            <span class="text-dark font-black text-lg md:text-xl">{fmt(goldPrice.silver.sv1000)}<span class="text-sm font-bold ml-0.5">円</span></span>
+            <span class="text-dark font-black text-lg md:text-xl">{fmt(goldPrice.silver.market.sv1000)}<span class="text-sm font-bold ml-0.5">円</span></span>
           </div>
           <div class="flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 transition-colors">
             <span class="text-text text-sm font-bold">Sv925(スターリングシルバー)</span>
-            <span class="text-dark font-black text-lg md:text-xl">{fmt(goldPrice.silver.sv925)}<span class="text-sm font-bold ml-0.5">円</span></span>
+            <span class="text-dark font-black text-lg md:text-xl">{fmt(goldPrice.silver.market.sv925)}<span class="text-sm font-bold ml-0.5">円</span></span>
           </div>
         </div>
       </div>

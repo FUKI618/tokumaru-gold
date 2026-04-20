@@ -11,21 +11,21 @@ const updatedStr = `${updated.getFullYear()}年${updated.getMonth() + 1}月${upd
 // ビルド時に価格データを埋め込む
 const priceData = {
   gold: {
-    k24: goldPrice.gold.k24,
-    k22: goldPrice.gold.k22,
-    k18: goldPrice.gold.k18,
-    k14: goldPrice.gold.k14,
-    k10: goldPrice.gold.k10,
+    k24: goldPrice.gold.sim.k24,
+    k22: goldPrice.gold.sim.k22,
+    k18: goldPrice.gold.sim.k18,
+    k14: goldPrice.gold.sim.k14,
+    k10: goldPrice.gold.sim.k10,
   },
   platinum: {
-    pt1000: goldPrice.platinum.pt1000,
-    pt950: goldPrice.platinum.pt950,
-    pt900: goldPrice.platinum.pt900,
-    pt850: goldPrice.platinum.pt850,
+    pt1000: goldPrice.platinum.sim.pt1000,
+    pt950: goldPrice.platinum.sim.pt950,
+    pt900: goldPrice.platinum.sim.pt900,
+    pt850: goldPrice.platinum.sim.pt850,
   },
   silver: {
-    sv1000: goldPrice.silver.sv1000,
-    sv925: goldPrice.silver.sv925,
+    sv1000: goldPrice.silver.sim.sv1000,
+    sv925: goldPrice.silver.sim.sv925,
   },
 };
 ---
