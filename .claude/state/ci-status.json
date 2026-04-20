@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-04-20T08:57:54Z",
-  "trigger_command": "cd \"/Users/fuki/Code/LP作成/徳丸商会/貴金属\" && git add -A && git commit -m \"$(cat <<'EOF'\\nブランド品セクション全面改修: AI画像削除→型番＋参考相場テキストに\\n\\n- AI生成ブランドバッグ画像4枚を削除（偽物感が出て逆効果）\\n- ブランド別参考相場テーブルに変更（6ブランド、各3-4モデル）:\\n  エルメス/シャネル/ルイヴィトン/ロレックス/グッチ/カルティエ\\n- 各モデルに型番＋参考買取価格幅を表示\\n- 主要買取ブランド一覧（12ブランド）追加\\n- その他ブランドをテキストで掲載\\n- 実物写真は買取実績に応じて順次掲載する構造\\n\\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>\\nEOF\\n)\" && git push origin main 2>&1 | tail -3",
+  "timestamp": "2026-04-20T09:14:09Z",
+  "trigger_command": "cd \"/Users/fuki/Code/LP作成/徳丸商会/貴金属\" && git add -A && git commit -m \"$(cat <<'EOF'\\nヒーロー価格表示をB案に変更 + 田中貴金属の文字を全削除\\n\\nヒーロー改修:\\n- 「本日の金買取価格 K24: ¥26,655/g」（誤解を生む）\\n  → 「金相場 ¥26,655/g ｜ 当社買取 ¥24,155/g」の2段表示に\\n- PC/モバイル両方に相場と自社買取の比較カードを配置\\n\\n田中貴金属の文字削除:\\n- LP表示から「田中貴金属」の文字を完全削除（dist内0件）\\n- 選ばれる理由: 「田中貴金属の店頭価格」→「市場の店頭価格」\\n- FAQ: 同上\\n- goldPrice.ts source: 「市場税込買取価格基準」に変更\\n- スクリプト内のコメント・変数名（TANAKA_URL等）は内部用のため残存\\n\\nK24純度比率修正:\\n- 0.999→1.0（K24は田中買取価格そのものを使用）\\n\\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>\\nEOF\\n)\" && git push origin main 2>&1 | tail -3",
   "status": "completed",
   "conclusion": "success"
 }
