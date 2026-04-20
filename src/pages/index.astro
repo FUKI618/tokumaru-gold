@@ -258,45 +258,80 @@ const otherBrands = "ミュウミュウ、ジミーチュウ、ゴヤール、�
   </div>
 </section>
 
-<!-- ═══ 3. 今日の金相場 ═══ -->
+<!-- ═══ 3. 今日の金相場（タブ切り替え式） ═══ -->
 <section id="gold-price" class="py-12 md:py-20 bg-bg">
   <div class="max-w-4xl mx-auto px-5">
     <div class="text-center mb-3 reveal">
       <div class="inline-block bg-gold text-dark text-[10px] md:text-xs font-bold px-4 py-1.5 rounded-full mb-4">GOLD PRICE</div>
       <h2 class="text-xl md:text-3xl font-black text-text">名古屋の金買取<br class="md:hidden" />1gあたりの参考相場表</h2>
     </div>
-    <p class="text-text-light text-sm text-center mb-2 reveal">本日の金・貴金属買取相場の最新価格をチェック！</p>
-    <p class="text-text-lighter text-xs text-center mb-8 reveal">更新日: {updatedStr}</p>
+    <p class="text-text-light text-sm text-center mb-2 reveal">本日の金・貴金属買取相場の最新価格をチェック！<br>金・貴金属の相場は日々変動するため、以下の参考買取相場表をご確認ください。</p>
+    <p class="text-text-lighter text-xs text-center mb-2 reveal">今日の金の参考買取相場</p>
+    <p class="text-text-lighter text-[10px] text-center mb-6 reveal">{updatedStr} ※見出しをスクロールで選択できます。</p>
 
-    <!-- 金の相場テーブル -->
-    <div class="reveal bg-white rounded-2xl shadow-md border border-border overflow-hidden mb-6">
-      <div class="bg-gold/10 border-b border-gold/20 px-5 py-3 flex items-center justify-between">
-        <h3 class="text-dark font-black text-sm">金（Gold）の買取価格</h3>
-        <span class="text-gold-dark text-xs font-bold">1gあたり（税込）</span>
+    <!-- タブ切り替え式テーブル -->
+    <div class="reveal bg-white rounded-2xl shadow-md border border-border overflow-hidden mb-6" x-data="{ tab: 'gold' }">
+      <!-- タブヘッダー -->
+      <div class="flex border-b border-border overflow-x-auto scrollbar-hide">
+        <button x-on:click="tab='gold'" x-bind:class="tab==='gold' ? 'bg-gold text-dark border-b-2 border-gold' : 'bg-bg text-text-light hover:bg-gold/10'" class="flex-1 min-w-[80px] py-3 px-4 text-sm font-black text-center transition-colors cursor-pointer whitespace-nowrap">
+          金
+        </button>
+        <button x-on:click="tab='platinum'" x-bind:class="tab==='platinum' ? 'bg-gray-700 text-white border-b-2 border-gray-700' : 'bg-bg text-text-light hover:bg-gray-100'" class="flex-1 min-w-[80px] py-3 px-4 text-sm font-black text-center transition-colors cursor-pointer whitespace-nowrap">
+          プラチナ
+        </button>
+        <button x-on:click="tab='silver'" x-bind:class="tab==='silver' ? 'bg-gray-400 text-white border-b-2 border-gray-400' : 'bg-bg text-text-light hover:bg-gray-100'" class="flex-1 min-w-[80px] py-3 px-4 text-sm font-black text-center transition-colors cursor-pointer whitespace-nowrap">
+          シルバー
+        </button>
+        <button x-on:click="tab='combo'" x-bind:class="tab==='combo' ? 'bg-amber-600 text-white border-b-2 border-amber-600' : 'bg-bg text-text-light hover:bg-amber-50'" class="flex-1 min-w-[80px] py-3 px-4 text-sm font-black text-center transition-colors cursor-pointer whitespace-nowrap">
+          金・プラチナ コンビ
+        </button>
       </div>
-      <div class="divide-y divide-border">
-        {goldGrades.map((g) => (
-          <div class="flex items-center justify-between px-5 py-3 hover:bg-gold/5 transition-colors">
-            <span class="text-text text-sm font-bold">{g.label}</span>
-            <span class="text-dark font-black text-lg md:text-xl">{fmt(goldPrice.gold[g.key as keyof typeof goldPrice.gold] as number)}<span class="text-sm font-bold ml-0.5">円</span></span>
-          </div>
-        ))}
-      </div>
-    </div>
 
-    <!-- プラチナの相場テーブル -->
-    <div class="reveal bg-white rounded-2xl shadow-md border border-border overflow-hidden mb-6">
-      <div class="bg-gray-100 border-b border-border px-5 py-3 flex items-center justify-between">
-        <h3 class="text-dark font-black text-sm">プラチナ（Platinum）の買取価格</h3>
-        <span class="text-text-light text-xs font-bold">1gあたり（税込）</span>
+      <!-- 金テーブル -->
+      <div x-show="tab==='gold'" x-transition>
+        <div class="divide-y divide-border">
+          {goldGrades.map((g) => (
+            <div class="flex items-center justify-between px-5 py-3.5 hover:bg-gold/5 transition-colors">
+              <span class="text-text text-sm font-bold">{g.label}</span>
+              <span class="text-dark font-black text-lg md:text-xl">{fmt(goldPrice.gold[g.key as keyof typeof goldPrice.gold] as number)}<span class="text-sm font-bold ml-0.5">円</span></span>
+            </div>
+          ))}
+        </div>
       </div>
-      <div class="divide-y divide-border">
-        {ptGrades.map((g) => (
-          <div class="flex items-center justify-between px-5 py-3 hover:bg-gray-50 transition-colors">
-            <span class="text-text text-sm font-bold">{g.label}</span>
-            <span class="text-dark font-black text-lg md:text-xl">{fmt(g.price)}<span class="text-sm font-bold ml-0.5">円</span></span>
+
+      <!-- プラチナテーブル -->
+      <div x-show="tab==='platinum'" x-transition style="display:none">
+        <div class="divide-y divide-border">
+          {ptGrades.map((g) => (
+            <div class="flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 transition-colors">
+              <span class="text-text text-sm font-bold">{g.label}</span>
+              <span class="text-dark font-black text-lg md:text-xl">{fmt(g.price)}<span class="text-sm font-bold ml-0.5">円</span></span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- シルバーテーブル -->
+      <div x-show="tab==='silver'" x-transition style="display:none">
+        <div class="divide-y divide-border">
+          <div class="flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 transition-colors">
+            <span class="text-text text-sm font-bold">Sv1000(純銀)</span>
+            <span class="text-dark font-black text-lg md:text-xl">{fmt(goldPrice.silver.sv1000)}<span class="text-sm font-bold ml-0.5">円</span></span>
           </div>
-        ))}
+          <div class="flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 transition-colors">
+            <span class="text-text text-sm font-bold">Sv925(スターリングシルバー)</span>
+            <span class="text-dark font-black text-lg md:text-xl">{fmt(goldPrice.silver.sv925)}<span class="text-sm font-bold ml-0.5">円</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 金・プラチナ コンビテーブル -->
+      <div x-show="tab==='combo'" x-transition style="display:none">
+        <div class="px-5 py-6 text-center">
+          <p class="text-text text-sm leading-relaxed mb-2">金・プラチナのコンビ製品は、<br class="md:hidden" />それぞれの金属の重量比率に応じて査定いたします。</p>
+          <p class="text-text-light text-xs">正確な買取価格は、専用機器で金属の比率を測定した上でお伝えします。</p>
+          <a href={`tel:${company.phone}`} class="inline-block mt-4 bg-gold hover:bg-gold-light text-dark font-black text-sm px-6 py-3 rounded-xl transition-colors">電話でお問い合わせ</a>
+        </div>
       </div>
     </div>
 
