@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-04-20T10:27:06Z",
-  "trigger_command": "cd \"/Users/fuki/Code/LP作成/徳丸商会/貴金属\" && npm run build 2>&1 | tail -2 && git add -A && git commit -m \"$(cat <<'EOF'\\n買取実績カードのレイアウトを金・ブランドで統一\\n\\n金の実績: 縦型カード（画像上+テキスト下）、2列×3行\\nブランド実績: 横型カード（画像左+テキスト右）→ 縦型カードに統一\\n  - aspect-square → aspect-[3/2]に統一\\n  - h3 → h2に統一\\n  - grid 1-2列 → 2-4列に変更（金は2-3列、ブランドは2-4列）\\n  - 買取実績バッジとテキスト構成を同じフォーマットに\\n\\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>\\nEOF\\n)\" && git push origin main 2>&1 | tail -3",
+  "timestamp": "2026-04-20T10:44:10Z",
+  "trigger_command": "cd \"/Users/fuki/Code/LP作成/徳丸商会/貴金属\"\\n\\n# サーバー用ビルド\\nPUBLIC_SITE_BASE=\"/\" npm run build 2>&1 | tail -2\\n\\n# ゴミ削除\\nrm -rf dist/images/gold/.claude dist/.DS_Store dist/images/.DS_Store\\n\\n# ZIP再生成\\nrm -f \"/Users/fuki/Code/LP作成/徳丸商会/ZIPフォルダ/金ブランド品LP_Astro.zip\"\\ncd dist && zip -r \"/Users/fuki/Code/LP作成/徳丸商会/ZIPフォルダ/金ブランド品LP_Astro.zip\" . -x \".*\" \"__MACOSX/*\" \"*.DS_Store\"\\n\\necho \"\"\\necho \"=== 最終ZIP ===\"\\nls -lh \"/Users/fuki/Code/LP作成/徳丸商会/ZIPフォルダ/金ブランド品LP_Astro.zip\"\\n\\n# GitHub Pages用に戻す\\ncd \"/Users/fuki/Code/LP作成/徳丸商会/貴金属\" && npm run build 2>&1 | tail -1\\n\\n# git push\\ngit add -A && git commit -m \"bg-area.webp再圧縮 110KB→63KB\\n\\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>\" && git push origin main 2>&1 | tail -2",
   "status": "completed",
   "conclusion": "success"
 }
