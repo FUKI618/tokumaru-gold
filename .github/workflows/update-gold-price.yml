@@ -27,13 +27,13 @@ jobs:
       - name: Check for changes
         id: check
         run: |
-          git diff --quiet src/data/goldPrice.ts || echo "changed=true" >> $GITHUB_OUTPUT
+          git diff --quiet src/data/goldPrice.ts public/goldPrice.json || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push
         if: steps.check.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/data/goldPrice.ts
+          git add src/data/goldPrice.ts public/goldPrice.json
           git commit -m "金相場自動更新: $(date -u +%Y-%m-%d)"
           git push

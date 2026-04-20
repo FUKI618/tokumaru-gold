@@ -203,45 +203,45 @@ export type GoldPrice = typeof goldPrice;
   console.log(`  金 K24: ¥${goldSimPrice.toLocaleString()}/g (-${GOLD_MARGIN})`);
   console.log(`  Pt1000: ¥${ptSimPrice.toLocaleString()}/g (-${PT_MARGIN})`);
   console.log(`  Sv1000: ¥${svSimPrice.toLocaleString()}/g (-${SV_MARGIN})`);
+
+  // === goldPrice.json も同時に出力（サーバー用） ===
+  const jsonPath = decodeURIComponent(new URL("../public/goldPrice.json", import.meta.url).pathname);
+  const jsonData = {
+    lastUpdated,
+    gold: {
+      tanakaBuy: goldTanakaBuy,
+      market: marketPrices,
+      sim: simPrices,
+    },
+    platinum: {
+      tanakaBuy: ptTanakaBuy,
+      market: {
+        pt1000: ptTanakaBuy,
+        pt950: Math.round(ptTanakaBuy * 0.95),
+        pt900: Math.round(ptTanakaBuy * 0.9),
+        pt850: Math.round(ptTanakaBuy * 0.85),
+      },
+      sim: {
+        pt1000: ptSimPrice,
+        pt950: Math.round(ptSimPrice * 0.95),
+        pt900: Math.round(ptSimPrice * 0.9),
+        pt850: Math.round(ptSimPrice * 0.85),
+      },
+    },
+    silver: {
+      tanakaBuy: svTanakaBuy,
+      market: {
+        sv1000: svTanakaBuy,
+        sv925: Math.round(svTanakaBuy * 0.925),
+      },
+      sim: {
+        sv1000: svSimPrice,
+        sv925: Math.round(svSimPrice * 0.925),
+      },
+    },
+  };
+  await Bun.write(jsonPath, JSON.stringify(jsonData));
+  console.log(`\nJSON出力: ${jsonPath}`);
 }
 
 main();
-
-// === goldPrice.json も同時に出力（サーバー用） ===
-const jsonPath = decodeURIComponent(new URL("../public/goldPrice.json", import.meta.url).pathname);
-const jsonData = {
-  lastUpdated,
-  gold: {
-    tanakaBuy: goldTanakaBuy,
-    market: marketPrices,
-    sim: simPrices,
-  },
-  platinum: {
-    tanakaBuy: ptTanakaBuy,
-    market: {
-      pt1000: ptTanakaBuy,
-      pt950: Math.round(ptTanakaBuy * 0.95),
-      pt900: Math.round(ptTanakaBuy * 0.9),
-      pt850: Math.round(ptTanakaBuy * 0.85),
-    },
-    sim: {
-      pt1000: ptSimPrice,
-      pt950: Math.round(ptSimPrice * 0.95),
-      pt900: Math.round(ptSimPrice * 0.9),
-      pt850: Math.round(ptSimPrice * 0.85),
-    },
-  },
-  silver: {
-    tanakaBuy: svTanakaBuy,
-    market: {
-      sv1000: svTanakaBuy,
-      sv925: Math.round(svTanakaBuy * 0.925),
-    },
-    sim: {
-      sv1000: svSimPrice,
-      sv925: Math.round(svSimPrice * 0.925),
-    },
-  },
-};
-await Bun.write(jsonPath, JSON.stringify(jsonData));
-console.log(`\nJSON出力: ${jsonPath}`);
