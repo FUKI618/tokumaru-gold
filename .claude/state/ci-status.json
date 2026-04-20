@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-04-20T11:31:17Z",
-  "trigger_command": "cd \"/Users/fuki/Code/LP作成/徳丸商会/貴金属\"\\n\\n# まずpush\\ngit add -A && git commit -m \"$(cat <<'EOF'\\n金相場自動更新の信頼性修正\\n\\n1. goldPrice.json を git add に追加（漏れていた）\\n2. スクリプトのJSON出力をmain()内に移動（変数スコープ修正）\\n3. ワークフローの変更チェックにgoldPrice.jsonを追加\\n\\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>\\nEOF\\n)\" && git push origin main 2>&1 | tail -2\\n\\n# GitHub Actionsを手動トリガー\\necho \"\"\\necho \"=== 手動トリガーテスト ===\"\\ngh workflow run \"Update Gold Price\" --repo FUKI618/tokumaru-gold 2>&1",
+  "timestamp": "2026-04-20T11:35:40Z",
+  "trigger_command": "cd \"/Users/fuki/Code/LP作成/徳丸商会/貴金属\" && git pull --rebase origin main 2>&1 && git push origin main 2>&1 | tail -3",
   "status": "completed",
   "conclusion": "success"
 }
