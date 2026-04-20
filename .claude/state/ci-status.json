@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-04-20T09:49:05Z",
-  "trigger_command": "cd \"/Users/fuki/Code/LP作成/徳丸商会/貴金属\" && npm run build 2>&1 | tail -3 && git add -A && git commit -m \"$(cat <<'EOF'\\n3点修正: ヒーロー簡素化・買取実績に詳細追加・ロゴ統一＆ブランド実績追加\\n\\n1. ヒーロー: 当社買取価格を削除、金相場のみシンプルに表示\\n2. 金買取実績: 地域・年齢・イニシャル・査定理由を全6件に追加\\n3. ロゴ画像: 統一キャンバスで5ブランド再生成（3:1横長、黒on白）\\n4. ブランド買取実績セクション新設（4件）:\\n   エルメス バーキン 168万円/シャネル マトラッセ 28.5万円\\n   ルイヴィトン ネヴァーフル 12.8万円/ロレックス サブマリーナ 145万円\\n\\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>\\nEOF\\n)\" && git push origin main 2>&1 | tail -3",
+  "timestamp": "2026-04-20T09:58:18Z",
+  "trigger_command": "cd \"/Users/fuki/Code/LP作成/徳丸商会/貴金属\" && npm run build 2>&1 | tail -3 && git add -A && git commit -m \"$(cat <<'EOF'\\nブランド買取実績に商品画像追加 + ロゴのフォントサイズ統一\\n\\n1. ブランド買取実績4件に商品画像を追加:\\n   バーキン/マトラッセ/ネヴァーフル/サブマリーナ\\n   参考サイトの写真をGeminiに入力して類似商品を生成\\n   カードを画像+テキストの横並びレイアウトに変更\\n\\n2. ブランドロゴ6点を統一フォントサイズで全て再生成:\\n   全て600x200キャンバス、60px高テキスト指定で生成\\n   エルメス/シャネル/ルイヴィトン/ロレックス/グッチ/カルティエ\\n\\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>\\nEOF\\n)\" && git push origin main 2>&1 | tail -3",
   "status": "completed",
   "conclusion": "success"
 }
