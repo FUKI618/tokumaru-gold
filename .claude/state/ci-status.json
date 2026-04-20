@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-04-20T09:58:18Z",
-  "trigger_command": "cd \"/Users/fuki/Code/LP作成/徳丸商会/貴金属\" && npm run build 2>&1 | tail -3 && git add -A && git commit -m \"$(cat <<'EOF'\\nブランド買取実績に商品画像追加 + ロゴのフォントサイズ統一\\n\\n1. ブランド買取実績4件に商品画像を追加:\\n   バーキン/マトラッセ/ネヴァーフル/サブマリーナ\\n   参考サイトの写真をGeminiに入力して類似商品を生成\\n   カードを画像+テキストの横並びレイアウトに変更\\n\\n2. ブランドロゴ6点を統一フォントサイズで全て再生成:\\n   全て600x200キャンバス、60px高テキスト指定で生成\\n   エルメス/シャネル/ルイヴィトン/ロレックス/グッチ/カルティエ\\n\\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>\\nEOF\\n)\" && git push origin main 2>&1 | tail -3",
+  "timestamp": "2026-04-20T10:20:53Z",
+  "trigger_command": "cd \"/Users/fuki/Code/LP作成/徳丸商会/貴金属\" && git add -A && git commit -m \"$(cat <<'EOF'\\nLP全面整理: 金ゾーン→ブランドゾーン→共通ゾーンに構造化 + ロゴ画像削除\\n\\n■ 構造整理（金とブランドの行き来を解消）:\\n  1-3: ヒーロー・信頼バー・お悩み（共通導入）\\n  4-8: 金ゾーン（相場→品位解説→状態OK→実績→CTA）\\n  9-12: ブランドゾーン（強化→実績→コツ→CTA）\\n  13-19: 共通ゾーン（理由→流れ→声→査定員→FAQ→エリア→CTA）\\n\\n■ ロゴ画像の削除:\\n  AI生成ロゴ6枚を全削除（フォントサイズ不統一・品質不足）\\n  ブランド名をテキスト表示に統一（英語名+日本語名）\\n\\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>\\nEOF\\n)\" && git push origin main 2>&1 | tail -3",
   "status": "completed",
   "conclusion": "success"
 }
