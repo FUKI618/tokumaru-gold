@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-04-20T07:33:19Z",
-  "trigger_command": "cd \"/Users/fuki/Code/LP作成/徳丸商会/貴金属\" && git add -A && git commit -m \"$(cat <<'EOF'\\n品質基準書準拠の最終レビュー修正\\n\\n- S3: meta description 109→135文字（基準120-160）\\n- S6: モバイルH1をrole=\"heading\"に（H1重複→1個）\\n- S9: body内メインKW 9→12回（FAQ+セクション見出しに自然追加）\\n- A6: 査定員セクションにstaffPortrait画像を配置（E-E-A-T Experience）\\n- 画像: hero 3サイズ(srcset) + og-image.webp + staff-portrait.webp 生成\\n\\n全チェックリスト通過:\\n  SEO 9/9, AEO 7/7, パフォーマンス 10/10,\\n  セキュリティ 5/5, OGP 4/4, 顧客目線 4/4, Google PQ G1-G10 全OK\\n\\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>\\nEOF\\n)\" && git push origin main 2>&1 | tail -3",
+  "timestamp": "2026-04-20T07:34:47Z",
+  "trigger_command": "cd \"/Users/fuki/Code/LP作成/徳丸商会/貴金属\" && npm run build 2>&1 | tail -2 && git add -A && git commit -m \"$(cat <<'EOF'\\nog-image.webp をpublic/ルートに移動（パス修正）\\n\\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>\\nEOF\\n)\" && git push origin main 2>&1 | tail -3",
   "status": "completed",
   "conclusion": "success"
 }
