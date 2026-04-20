@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { homePath } from "../lib/site";
+import { company } from "../data/company";
+---
+
+<Layout title="プライバシーポリシー｜徳丸商会" description="徳丸商会のプライバシーポリシー">
+  <div class="max-w-3xl mx-auto px-5 py-20">
+    <h1 class="text-2xl font-black mb-8">プライバシーポリシー</h1>
+    <div class="prose prose-sm text-text-light leading-relaxed space-y-4">
+      <p>徳丸商会（以下「当社」）は、お客様の個人情報の保護に努めています。</p>
+      <h2 class="text-lg font-bold text-text mt-6">1. 個人情報の収集</h2>
+      <p>当社は、お問い合わせやサービスのご利用に際して、お名前、ご住所、お電話番号等の個人情報をお伺いする場合があります。</p>
+      <h2 class="text-lg font-bold text-text mt-6">2. 個人情報の利用目的</h2>
+      <p>収集した個人情報は、お問い合わせへの対応、サービスの提供、アフターサポートのために利用いたします。</p>
+      <h2 class="text-lg font-bold text-text mt-6">3. 個人情報の第三者提供</h2>
+      <p>法令に基づく場合を除き、お客様の同意なく第三者に個人情報を提供することはありません。</p>
+      <h2 class="text-lg font-bold text-text mt-6">4. お問い合わせ</h2>
+      <p>個人情報に関するお問い合わせは、お電話（{company.phone}）にてお受けしております。</p>
+    </div>
+    <div class="mt-10">
+      <a href={homePath} class="text-gold hover:text-gold-dark font-bold text-sm">← トップページに戻る</a>
+    </div>
+  </div>
+</Layout>

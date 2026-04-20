@@ -1,0 +1,707 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { assetPath, homePath, sectionPath, privacyPolicyPath, simulationPath } from "../lib/site";
+import { faqs } from "../data/faq";
+import { goldPrice } from "../data/goldPrice";
+import { company } from "../data/company";
+
+const logo = assetPath("logo.svg");
+const hero = assetPath("images/gold/hero.webp");
+const hero480 = assetPath("images/gold/hero-480.webp");
+const hero800 = assetPath("images/gold/hero-800.webp");
+
+// 金相場表示用フォーマット
+const fmt = (n: number) => n.toLocaleString("ja-JP");
+const updated = new Date(goldPrice.lastUpdated);
+const updatedStr = `${updated.getFullYear()}年${updated.getMonth()+1}月${updated.getDate()}日`;
+
+// 金の品位テーブル
+const goldGrades = [
+  { label: "インゴット(金)", key: "k24", purity: "99.9%" },
+  { label: "24金(K24・純金)", key: "k24", purity: "99.9%" },
+  { label: "23金(K23)", key: "k23", purity: "95.8%" },
+  { label: "22金(K22)", key: "k22", purity: "91.7%" },
+  { label: "21.6金(K21.6)", key: "k21_6", purity: "90.0%" },
+  { label: "20金(K20)", key: "k20", purity: "83.3%" },
+  { label: "18金(K18)", key: "k18", purity: "75.0%" },
+  { label: "14金(K14)", key: "k14", purity: "58.5%" },
+  { label: "10金(K10)", key: "k10", purity: "41.7%" },
+  { label: "9金(K9)", key: "k9", purity: "37.5%" },
+];
+
+const ptGrades = [
+  { label: "Pt1000(純プラチナ)", price: goldPrice.platinum.pt1000 },
+  { label: "Pt950", price: goldPrice.platinum.pt950 },
+  { label: "Pt900", price: goldPrice.platinum.pt900 },
+  { label: "Pt850", price: goldPrice.platinum.pt850 },
+];
+
+// お客様の声
+const voices = [
+  { text: "タンスの中に眠っていたK18のネックレスやリングを5点まとめて査定していただきました。相場表通りの金額で、他社より3万円も高かったです。", who: "名古屋市千種区 60代女性" },
+  { text: "エルメスのバーキンとシャネルのバッグをまとめて買取してもらいました。付属品も揃っていたので高額査定に。LINE査定で事前に相場が分かって安心でした。", who: "名古屋市中区 30代女性" },
+  { text: "亡くなった母の金のブレスレットと指輪を買取してもらいました。刻印がない品もあったのですが、専用の機器で測定してくれて安心でした。", who: "名古屋市緑区 50代男性" },
+];
+
+// 金の品位解説
+const purityInfo = [
+  { grade: "K24(純金)", purity: "99.9%以上", feature: "非常に柔らかく、純度が高い", target: "インゴット、金貨" },
+  { grade: "K22(22金)", purity: "91.7%", feature: "耐久性があり、ジュエリーにも使用", target: "一部の金貨、装飾品" },
+  { grade: "K18(18金)", purity: "75.0%", feature: "耐久性と価値のバランスが良い", target: "ネックレス、指輪" },
+  { grade: "K14(14金)", purity: "58.5%", feature: "比較的安価で変色しにくい", target: "ブレスレット、時計" },
+  { grade: "K10(10金)", purity: "41.7%", feature: "金の割合が低く、耐久性がある", target: "カジュアルジュエリー" },
+];
+
+// ブランド買取強化
+const brands = [
+  { name: "エルメス", en: "HERMES" },
+  { name: "シャネル", en: "CHANEL" },
+  { name: "ルイ・ヴィトン", en: "LOUIS VUITTON" },
+  { name: "グッチ", en: "GUCCI" },
+  { name: "プラダ", en: "PRADA" },
+  { name: "ディオール", en: "Dior" },
+  { name: "セリーヌ", en: "CELINE" },
+  { name: "ロエベ", en: "LOEWE" },
+  { name: "ボッテガ・ヴェネタ", en: "BOTTEGA VENETA" },
+  { name: "サンローラン", en: "SAINT LAURENT" },
+  { name: "フェンディ", en: "FENDI" },
+  { name: "バレンシアガ", en: "BALENCIAGA" },
+];
+
+const otherBrands = "ミュウミュウ、ジミーチュウ、ゴヤール、クロエ、フェラガモ、ジバンシー、ステラマッカートニー、ブルガリ、クリスチャンルブタン、カルティエ、ティファニー、バーバリー、ヴァレンティノ、ヴェルサーチ、クロムハーツ、MCM";
+---
+
+<Layout
+  title="金・ブランド品買取 名古屋｜毎日相場更新・出張費無料の徳丸商会"
+  description="名古屋の金・貴金属・ブランド品買取なら徳丸商会。金相場を毎日更新、K24純金からK10まで全品位対応。エルメス・シャネル・ルイヴィトンなどブランド品も高価買取。出張費・査定費0円、その場で現金。052-990-3968"
+  extraJsonLd={[
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "徳丸商会トップ", "item": "https://tokumaru-shokai.com/" },
+        { "@type": "ListItem", "position": 2, "name": "金・ブランド品買取", "item": "https://tokumaru-shokai.com/gold/" }
+      ]
+    }
+  ]}
+>
+
+<!-- ═══ HEADER ═══ -->
+<div class="hidden md:block fixed top-0 inset-x-0 z-50 bg-dark border-b border-gold/10">
+  <div class="max-w-6xl mx-auto px-5 h-8 flex items-center justify-end gap-6 text-[11px] text-white/50">
+    <span>受付 {company.hours}</span>
+    <a href={`tel:${company.phone}`} class="flex items-center gap-1 text-white/70 hover:text-white transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      {company.phone}
+    </a>
+  </div>
+</div>
+<header class="fixed top-0 md:top-8 inset-x-0 z-50 bg-dark/95 backdrop-blur-md shadow-2xl border-b border-gold/15">
+  <div class="max-w-6xl mx-auto px-4 md:px-5 h-[72px] md:h-[92px] flex items-center justify-between">
+    <a href={homePath} class="flex items-center gap-3 group">
+      <img src={logo} alt="徳丸商会" width="56" height="56" class="w-[58px] h-[58px] md:w-[72px] md:h-[72px] transition-transform group-hover:scale-105" />
+      <div class="flex flex-col">
+        <span class="text-white font-black text-xl md:text-2xl leading-tight tracking-tight">徳丸商会</span>
+        <span class="text-gold/80 text-[9px] md:text-xs font-bold leading-tight whitespace-nowrap">金・ブランド品買取専門</span>
+      </div>
+    </a>
+    <nav class="hidden md:flex items-center gap-1">
+      <a href={sectionPath("gold-price")} class="text-white/60 hover:text-white hover:bg-white/5 text-sm font-bold px-4 py-2.5 rounded-lg transition-all">金相場</a>
+      <a href={sectionPath("brand")} class="text-white/60 hover:text-white hover:bg-white/5 text-sm font-bold px-4 py-2.5 rounded-lg transition-all">ブランド品</a>
+      <a href={sectionPath("flow")} class="text-white/60 hover:text-white hover:bg-white/5 text-sm font-bold px-4 py-2.5 rounded-lg transition-all">流れ</a>
+      <a href={sectionPath("faq")} class="text-white/60 hover:text-white hover:bg-white/5 text-sm font-bold px-4 py-2.5 rounded-lg transition-all">FAQ</a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <a href={`tel:${company.phone}`} class="flex items-center justify-center gap-1.5 bg-gold hover:bg-gold-light text-dark font-bold text-[11px] md:text-sm px-3 md:px-5 py-2 md:py-3 rounded-lg md:rounded-xl transition-colors shadow-md">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 md:w-5 md:h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        電話
+      </a>
+      <a href={company.line} target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 bg-line hover:brightness-110 text-white font-bold text-[11px] md:text-sm px-3 md:px-5 py-2 md:py-3 rounded-lg md:rounded-xl transition-all shadow-md">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 md:w-5 md:h-5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+        LINE
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="pt-[72px] md:pt-[124px]">
+
+<!-- ═══ 1. HERO ═══ -->
+<section class="bg-dark text-white">
+  <div class="relative hidden md:block overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-dark via-dark/90 to-dark/70"></div>
+    <div class="relative max-w-6xl mx-auto px-5 py-28 w-full">
+      <div class="max-w-xl">
+        <div class="inline-flex items-center gap-2 bg-gold/20 border border-gold/40 text-gold-light rounded-full px-4 py-1.5 text-xs font-bold mb-6">
+          <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-gold-light"></span></span>
+          金相場高騰中 ― 今が売り時です
+        </div>
+        <h1 class="text-5xl lg:text-6xl font-black leading-[1.1] mb-5 tracking-tight">
+          名古屋の<br><span class="text-gradient">金・ブランド品</span><br>買取なら徳丸商会
+        </h1>
+        <p class="text-white/80 text-base mb-8 max-w-md leading-relaxed">
+          金・プラチナ・ブランドバッグ・ジュエリーを<br>相場に基づく適正価格で高価買取。<br>出張費・査定費0円。その場で現金。
+        </p>
+        <div class="flex flex-wrap gap-2 mb-8">
+          <span class="bg-white/10 backdrop-blur-sm text-white text-xs font-bold px-4 py-2 rounded-full border border-white/15">金相場毎日更新</span>
+          <span class="bg-white/10 backdrop-blur-sm text-white text-xs font-bold px-4 py-2 rounded-full border border-white/15">手数料0円</span>
+          <span class="bg-white/10 backdrop-blur-sm text-white text-xs font-bold px-4 py-2 rounded-full border border-white/15">最短即日対応</span>
+          <span class="bg-white/10 backdrop-blur-sm text-white text-xs font-bold px-4 py-2 rounded-full border border-white/15">その場で現金</span>
+        </div>
+        <div class="flex flex-row gap-3 mb-4">
+          <a href={`tel:${company.phone}`} class="cta-glow bg-gold hover:bg-gold-light text-dark font-black text-lg px-8 py-4 rounded-xl text-center transition-colors">今すぐ電話で相談する</a>
+          <a href={company.line} target="_blank" rel="noopener noreferrer" class="cta-glow-line bg-line hover:brightness-110 text-white font-bold text-lg px-8 py-4 rounded-xl text-center transition-all flex items-center justify-center gap-2">
+            LINEで写真査定
+          </a>
+        </div>
+        <p class="text-white/40 text-xs">受付 {company.hours} / 出張費・査定費 0円 / キャンセル無料</p>
+      </div>
+    </div>
+  </div>
+  <!-- モバイル -->
+  <div class="md:hidden bg-dark text-white">
+    <div class="px-5 pt-6 pb-6">
+      <div class="inline-flex items-center gap-2 bg-gold/20 border border-gold/40 text-gold-light rounded-full px-3 py-1 text-[10px] font-bold mb-4">
+        <span class="relative flex h-1.5 w-1.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span><span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-gold-light"></span></span>
+        金相場高騰中
+      </div>
+      <h1 class="text-[2.1rem] font-black leading-[1.15] mb-3">
+        名古屋の<br><span class="text-gradient">金・ブランド品</span><br>買取なら徳丸商会
+      </h1>
+      <p class="text-white/70 text-[13px] leading-relaxed mb-4">
+        金・プラチナ・ブランドバッグ・ジュエリーを<br>相場に基づく適正価格で高価買取。
+      </p>
+      <div class="flex flex-wrap gap-1.5 mb-4">
+        <span class="bg-white/10 text-white text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/20">金相場毎日更新</span>
+        <span class="bg-white/10 text-white text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/20">手数料0円</span>
+        <span class="bg-white/10 text-white text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/20">即日現金</span>
+      </div>
+      <div class="flex gap-2.5 mb-2">
+        <a href={`tel:${company.phone}`} class="cta-glow flex-1 bg-gold text-dark font-black text-[13px] py-3 rounded-xl text-center shadow-lg">電話で相談する</a>
+        <a href={company.line} target="_blank" rel="noopener noreferrer" class="cta-glow-line flex-1 bg-line text-white font-bold text-[13px] py-3 rounded-xl text-center shadow-lg">LINE査定</a>
+      </div>
+      <p class="text-white/30 text-[9px] text-center">受付 {company.hours} / 出張費・査定費0円</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 2. 信頼バー ═══ -->
+<section class="border-t-4 border-gold bg-white shadow-md">
+  <div class="max-w-4xl mx-auto px-5 py-6">
+    <div class="grid grid-cols-3 divide-x divide-border stagger-children">
+      <div class="reveal text-center px-2 md:px-4">
+        <p class="text-dark font-black text-xl md:text-3xl count-up whitespace-nowrap" data-target="30000">0</p>
+        <p class="text-gold font-bold text-[10px] md:text-sm">件以上</p>
+        <p class="text-text-lighter text-[9px] md:text-[10px] mt-0.5 whitespace-nowrap">累計ご依頼</p>
+      </div>
+      <div class="reveal text-center px-2 md:px-4">
+        <p class="text-dark font-black text-xl md:text-3xl count-up whitespace-nowrap" data-target="98">0</p>
+        <p class="text-gold font-bold text-[10px] md:text-sm">%</p>
+        <p class="text-text-lighter text-[9px] md:text-[10px] mt-0.5 whitespace-nowrap">お客様満足度</p>
+      </div>
+      <div class="reveal text-center px-2 md:px-4">
+        <p class="text-dark font-black text-xl md:text-3xl whitespace-nowrap">0円</p>
+        <p class="text-gold font-bold text-[10px] md:text-sm whitespace-nowrap">出張費・査定費</p>
+        <p class="text-text-lighter text-[9px] md:text-[10px] mt-0.5 whitespace-nowrap">完全無料</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 3. 今日の金相場 ═══ -->
+<section id="gold-price" class="py-12 md:py-20 bg-bg">
+  <div class="max-w-4xl mx-auto px-5">
+    <div class="text-center mb-3 reveal">
+      <div class="inline-block bg-gold text-dark text-[10px] md:text-xs font-bold px-4 py-1.5 rounded-full mb-4">GOLD PRICE</div>
+      <h2 class="text-xl md:text-3xl font-black text-text">金・貴金属 1gあたりの<br class="md:hidden" />参考買取相場表</h2>
+    </div>
+    <p class="text-text-light text-sm text-center mb-2 reveal">本日の金買取相場の最新価格をチェック！</p>
+    <p class="text-text-lighter text-xs text-center mb-8 reveal">更新日: {updatedStr}</p>
+
+    <!-- 金の相場テーブル -->
+    <div class="reveal bg-white rounded-2xl shadow-md border border-border overflow-hidden mb-6">
+      <div class="bg-gold/10 border-b border-gold/20 px-5 py-3 flex items-center justify-between">
+        <h3 class="text-dark font-black text-sm">金（Gold）の買取価格</h3>
+        <span class="text-gold-dark text-xs font-bold">1gあたり（税込）</span>
+      </div>
+      <div class="divide-y divide-border">
+        {goldGrades.map((g) => (
+          <div class="flex items-center justify-between px-5 py-3 hover:bg-gold/5 transition-colors">
+            <span class="text-text text-sm font-bold">{g.label}</span>
+            <span class="text-dark font-black text-lg md:text-xl">{fmt(goldPrice.gold[g.key as keyof typeof goldPrice.gold] as number)}<span class="text-sm font-bold ml-0.5">円</span></span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- プラチナの相場テーブル -->
+    <div class="reveal bg-white rounded-2xl shadow-md border border-border overflow-hidden mb-6">
+      <div class="bg-gray-100 border-b border-border px-5 py-3 flex items-center justify-between">
+        <h3 class="text-dark font-black text-sm">プラチナ（Platinum）の買取価格</h3>
+        <span class="text-text-light text-xs font-bold">1gあたり（税込）</span>
+      </div>
+      <div class="divide-y divide-border">
+        {ptGrades.map((g) => (
+          <div class="flex items-center justify-between px-5 py-3 hover:bg-gray-50 transition-colors">
+            <span class="text-text text-sm font-bold">{g.label}</span>
+            <span class="text-dark font-black text-lg md:text-xl">{fmt(g.price)}<span class="text-sm font-bold ml-0.5">円</span></span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- シミュレーションリンク -->
+    <div class="reveal text-center">
+      <a href={simulationPath} class="inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-dark font-black text-sm md:text-base px-8 py-4 rounded-xl shadow-lg transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+        買取金額シミュレーション
+      </a>
+      <p class="text-text-lighter text-xs mt-3">品位と重量を入力するだけで概算金額がわかります</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 4. お悩みセクション ═══ -->
+<section class="py-12 md:py-20 bg-dark text-white">
+  <div class="max-w-4xl mx-auto px-5">
+    <h2 class="text-xl md:text-3xl font-black text-center mb-3 reveal">
+      こんなお悩み<span class="text-gold-light">ありませんか？</span>
+    </h2>
+    <p class="text-white/60 text-sm text-center mb-10 reveal">名古屋で金・ブランド品の買取をお考えの方へ</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 stagger-children">
+      {[
+        "金の相場がよく分からない",
+        "刻印がなくて他店で断られた",
+        "壊れたアクセサリーも売れる？",
+        "ブランド品の箱や保証書がない",
+        "まとめて売りたいけど量が多い",
+        "忙しくて店舗に行く時間がない",
+      ].map(text => (
+        <div class="reveal card-hover flex items-center gap-3 bg-white/10 backdrop-blur border border-white/20 rounded-xl p-4 text-white">
+          <span class="bg-gold text-dark w-7 h-7 rounded-full flex items-center justify-center shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          <p class="font-bold text-sm leading-snug">{text}</p>
+        </div>
+      ))}
+    </div>
+    <div class="text-center mt-10">
+      <p class="text-white font-black text-lg mb-4">その悩み、徳丸商会が全て解決します</p>
+      <a href={`tel:${company.phone}`} class="cta-glow inline-block bg-gold hover:bg-gold-light text-dark font-black text-sm md:text-base px-6 md:px-8 py-3.5 md:py-4 rounded-xl shadow-xl transition-colors">電話で無料相談</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 5. 金の品位解説 ═══ -->
+<section class="py-12 md:py-20 bg-white">
+  <div class="max-w-4xl mx-auto px-5">
+    <h2 class="text-xl md:text-3xl font-black text-center text-text mb-3 reveal">
+      純度がわからない金製品の<br class="md:hidden" />買取もぜひご相談ください
+    </h2>
+    <p class="text-text-light text-sm text-center mb-10 reveal">金の品位（カラット）と特徴</p>
+    <div class="reveal overflow-x-auto">
+      <div class="min-w-[500px] bg-bg rounded-2xl border border-border overflow-hidden">
+        <div class="grid grid-cols-4 bg-gold/10 border-b border-gold/20 font-black text-xs md:text-sm text-dark">
+          <div class="px-4 py-3">品位</div>
+          <div class="px-4 py-3">純度</div>
+          <div class="px-4 py-3">特徴</div>
+          <div class="px-4 py-3">主な買取対象</div>
+        </div>
+        {purityInfo.map(p => (
+          <div class="grid grid-cols-4 border-b border-border last:border-b-0 text-xs md:text-sm">
+            <div class="px-4 py-3 font-bold text-dark">{p.grade}</div>
+            <div class="px-4 py-3 text-gold-dark font-bold">{p.purity}</div>
+            <div class="px-4 py-3 text-text-light">{p.feature}</div>
+            <div class="px-4 py-3 text-text-light">{p.target}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <p class="text-text-lighter text-xs mt-4 text-center reveal">刻印がない・読めない場合も、専用の比重計・X線分析装置で正確に測定いたします</p>
+  </div>
+</section>
+
+<!-- ═══ 6. どんな状態でも買取OK ═══ -->
+<section class="py-12 md:py-16 bg-gold/5 border-y border-gold/20">
+  <div class="max-w-4xl mx-auto px-5 text-center">
+    <div class="inline-block bg-gold text-dark font-black text-sm px-5 py-2 rounded-full mb-5 shadow">どんな状態でもOK!</div>
+    <h2 class="text-xl md:text-2xl font-black text-text mb-8 reveal">こんな状態でも買取いたします</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 stagger-children">
+      {[
+        { icon: "💍", label: "変形・ちぎれ", desc: "曲がった金も買取" },
+        { icon: "🔗", label: "チェーン切れ", desc: "切れたネックレスOK" },
+        { icon: "⚫", label: "黒ずみ・変色", desc: "シルバーの変色もOK" },
+        { icon: "❓", label: "刻印なし", desc: "機器で正確測定" },
+        { icon: "✨", label: "少量でも", desc: "ピアス1個からOK" },
+      ].map(item => (
+        <div class="reveal bg-white rounded-xl p-4 shadow-sm border border-border text-center">
+          <div class="text-3xl mb-2">{item.icon}</div>
+          <p class="text-text font-bold text-sm mb-1">{item.label}</p>
+          <p class="text-text-lighter text-[10px]">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 7. CTA帯 ═══ -->
+<section class="py-10 md:py-14 bg-dark text-white text-center">
+  <div class="max-w-3xl mx-auto px-5">
+    <p class="text-gold-light font-black text-xs uppercase tracking-widest mb-2">FREE CONSULTATION</p>
+    <h2 class="text-xl md:text-3xl font-black mb-4 reveal">金相場が高い今がチャンス</h2>
+    <p class="text-white/70 text-sm mb-6 reveal">出張費・査定費0円。キャンセルも無料です。</p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <a href={`tel:${company.phone}`} class="cta-glow bg-gold hover:bg-gold-light text-dark font-black text-base md:text-lg px-6 md:px-8 py-3.5 md:py-4 rounded-xl shadow-xl transition-colors">電話で無料査定</a>
+      <a href={company.line} target="_blank" rel="noopener noreferrer" class="cta-glow-line bg-line hover:brightness-110 text-white font-bold text-lg px-8 py-4 rounded-xl shadow-xl transition-all">LINEで無料査定</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 8. ブランド品 買取強化 ═══ -->
+<section id="brand" class="py-12 md:py-20 bg-bg">
+  <div class="max-w-5xl mx-auto px-5">
+    <div class="text-center mb-3 reveal">
+      <div class="inline-block bg-gold text-dark text-[10px] md:text-xs font-bold px-4 py-1.5 rounded-full mb-4">BRAND</div>
+      <h2 class="text-xl md:text-3xl font-black text-text">買取強化中のブランド品</h2>
+    </div>
+    <p class="text-text-light text-sm text-center mb-12 reveal">人気ブランドの買取を強化中。専門査定員が適正価格をご提示します。</p>
+
+    <!-- ブランドロゴグリッド -->
+    <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 mb-10 stagger-children">
+      {brands.map(b => (
+        <div class="reveal card-hover bg-white rounded-xl p-4 shadow-sm border border-border text-center">
+          <p class="text-dark font-black text-xs mb-0.5">{b.name}</p>
+          <p class="text-text-lighter text-[9px]">{b.en}</p>
+        </div>
+      ))}
+    </div>
+    <p class="text-text-lighter text-xs text-center reveal">その他: {otherBrands}</p>
+  </div>
+</section>
+
+<!-- ═══ 9. ブランド品を高く売るコツ ═══ -->
+<section class="py-12 md:py-20 bg-white">
+  <div class="max-w-4xl mx-auto px-5">
+    <h2 class="text-xl md:text-3xl font-black text-center text-text mb-3 reveal">ブランド品を損せず<br class="md:hidden" />高く売るコツ</h2>
+    <p class="text-text-light text-sm text-center mb-10 reveal">査定額UPの秘訣</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 stagger-children">
+      {[
+        { num: "01", title: "人気モデルのうちに売却しましょう", desc: "ブランド品のなかには人気モデルとなっている商品があります。例えばセリーヌの「ラゲージ」やロエベの「パズルバッグ」は現在高値。人気が落ちる前に売るのがポイントです。" },
+        { num: "02", title: "箱や保存袋など付属品をご用意ください", desc: "ブランド品の買取は付属品が揃っているほうが高価買取が可能です。ストラップ、ギャランティカード、箱、保存袋を揃えましょう。特にギャランティカードは正規品の証明になります。" },
+        { num: "03", title: "売る前に手入れをしておきましょう", desc: "商品の状態も査定に影響するため、できるだけ見た目をきれいに整えておきましょう。汚れやホコリを落としておくだけでも十分です。レザーはブランドごとの推奨お手入れ方法があります。" },
+      ].map(tip => (
+        <div class="reveal card-hover bg-bg rounded-2xl p-6 shadow-sm border border-border">
+          <div class="bg-gold text-dark text-xs font-black w-8 h-8 rounded-full flex items-center justify-center mb-3">{tip.num}</div>
+          <h3 class="text-dark font-black text-base mb-3">{tip.title}</h3>
+          <p class="text-text-light text-sm leading-relaxed">{tip.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 10. 出張買取の流れ ═══ -->
+<section id="flow" class="py-12 md:py-20 bg-gold-bg">
+  <div class="max-w-4xl mx-auto px-5">
+    <div class="text-center mb-3 reveal">
+      <div class="inline-block bg-gold text-dark text-[10px] md:text-xs font-bold px-4 py-1.5 rounded-full mb-4">FLOW</div>
+      <h2 class="text-xl md:text-3xl font-black text-text">出張買取の流れ</h2>
+    </div>
+    <p class="text-text-light text-sm text-center mb-10 reveal">かんたん3ステップで完了</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-children">
+      {[
+        { step: "1", title: "お電話・LINEでお問い合わせ", desc: "買取希望のお品物や訪問日時をお伝えください。LINEなら写真を送るだけで事前査定も可能です。" },
+        { step: "2", title: "ご訪問・査定・現金払い", desc: "査定員がご自宅にお伺い。金は品位測定、ブランド品は真贋鑑定を行い、その場で現金をお渡しします。" },
+        { step: "3", title: "お品物のお引き取り", desc: "買取成立したお品物をお引き取り。キャンセル料は一切かかりません。" },
+      ].map(s => (
+        <div class="reveal card-hover bg-white rounded-2xl p-6 shadow-md border border-border text-center">
+          <div class="bg-gradient-to-br from-gold to-gold-dark text-dark font-black text-2xl w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 shadow">{s.step}</div>
+          <h3 class="text-dark font-black text-base mb-2">{s.title}</h3>
+          <p class="text-text-light text-sm leading-relaxed">{s.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 11. 選ばれる理由 ═══ -->
+<section class="py-12 md:py-20 bg-white">
+  <div class="max-w-5xl mx-auto px-5">
+    <h2 class="text-xl md:text-3xl font-black text-center text-text mb-3 reveal">徳丸商会が選ばれる理由</h2>
+    <p class="text-text-light text-sm text-center mb-12 reveal">名古屋の金・ブランド品買取で選ばれ続ける4つの理由</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 stagger-children">
+      {[
+        { num: "01", title: "金相場を毎日更新", desc: "田中貴金属の店頭価格を基準に、毎日の買取価格を更新。相場に基づく適正価格で買取いたします。" },
+        { num: "02", title: "出張費・査定費 完全無料", desc: "名古屋市内・近郊へ出張費無料でお伺いします。査定だけのご依頼も歓迎。キャンセル料もかかりません。" },
+        { num: "03", title: "金とブランド品をまとめて査定", desc: "金・プラチナ・宝石とブランドバッグ・時計を1回の訪問でまとめて査定。トータルで高額買取を実現します。" },
+        { num: "04", title: "古物商許可取得の信頼業者", desc: `${company.license}を取得した正規の買取業者です。プライバシーにも最大限配慮いたします。` },
+      ].map(r => (
+        <div class="reveal card-hover bg-bg rounded-2xl p-6 shadow-sm border border-border flex gap-5">
+          <div class="shrink-0 w-12 h-12 bg-gradient-to-br from-gold to-gold-dark rounded-2xl flex items-center justify-center shadow text-dark font-black text-sm">{r.num}</div>
+          <div>
+            <h3 class="text-dark font-black text-base mb-2">{r.title}</h3>
+            <p class="text-text-light text-sm leading-relaxed">{r.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 12. お客様の声 ═══ -->
+<section class="py-12 md:py-20 bg-bg">
+  <div class="max-w-5xl mx-auto px-5">
+    <h2 class="text-xl md:text-3xl font-black text-center text-text mb-3 reveal">お客様の声</h2>
+    <p class="text-text-light text-sm text-center mb-12 reveal">金・ブランド品の買取をご利用いただいたお客様より</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 stagger-children">
+      {voices.map(v => (
+        <div class="reveal card-hover bg-white rounded-2xl p-6 shadow-md border border-border">
+          <div class="flex gap-1 mb-3">
+            {[...Array(5)].map(() => (
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gold" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            ))}
+          </div>
+          <p class="text-text text-sm leading-relaxed mb-4">「{v.text}」</p>
+          <p class="text-text-lighter text-xs">{v.who}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 13. 査定員からのご挨拶 ═══ -->
+<section class="py-12 md:py-20 bg-white">
+  <div class="max-w-3xl mx-auto px-5">
+    <h2 class="text-xl md:text-3xl font-black text-center text-text mb-3 reveal">査定員からのご挨拶</h2>
+    <p class="text-text-light text-sm text-center mb-10 reveal">お客様の大切な品に、適正な価値をお伝えします</p>
+    <div class="reveal bg-gold-bg border border-gold/20 rounded-2xl p-6 md:p-8 flex flex-col sm:flex-row gap-6 items-center sm:items-start">
+      <div class="shrink-0">
+        <div class="w-32 h-32 md:w-40 md:h-40 rounded-2xl bg-dark/10 flex items-center justify-center shadow-md text-4xl">👤</div>
+        <p class="text-dark font-black text-sm text-center mt-3">査定担当</p>
+      </div>
+      <div class="flex-1">
+        <p class="text-text text-sm md:text-base leading-relaxed mb-4">
+          金やプラチナの相場は毎日変動しますが、「今日の相場でいくらになるか」を明確にお伝えすることが、お客様の安心につながると考えています。
+        </p>
+        <p class="text-text text-sm md:text-base leading-relaxed mb-4">
+          ブランド品も、人気モデルの市場動向を常に追いかけ、適正な価値を見極めています。付属品が揃っていなくても、状態が良くなくても、まずは拝見させてください。
+        </p>
+        <p class="text-text text-sm md:text-base leading-relaxed mb-4">
+          「こんなものに値段がつくの？」と驚かれるお客様も少なくありません。タンスの奥に眠っている品があれば、ぜひ一度ご相談ください。
+        </p>
+        <p class="text-dark font-black text-sm">
+          相場に基づく適正価格で、最後まで丁寧に対応いたします。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 14. FAQ ═══ -->
+<section id="faq" class="py-12 md:py-20 bg-bg">
+  <div class="max-w-3xl mx-auto px-5">
+    <div class="text-center mb-8 reveal">
+      <div class="inline-block bg-gold text-dark text-[10px] md:text-xs font-bold px-4 py-1.5 rounded-full mb-4">FAQ</div>
+      <h2 class="text-xl md:text-3xl font-black text-text">よくあるご質問</h2>
+    </div>
+    <div class="space-y-3 stagger-children" x-data>
+      {faqs.map((faq, i) => (
+        <div x-data="{ open: false }" class="bg-white rounded-xl border border-border shadow-sm overflow-hidden">
+          <button x-on:click="open = !open" class="w-full flex items-start justify-between gap-4 p-5 text-left cursor-pointer" x-bind:aria-expanded="open.toString()">
+            <div class="flex items-start gap-3">
+              <span class="bg-gold text-dark w-7 h-7 rounded-full flex items-center justify-center text-xs font-black shrink-0 mt-0.5">Q</span>
+              <span class="text-text font-bold text-sm leading-relaxed">{faq.question}</span>
+            </div>
+            <span class="text-gold text-xl shrink-0 transition-transform duration-200 leading-none mt-0.5" x-bind:class="open && 'rotate-45'">+</span>
+          </button>
+          <div x-show="open" x-transition class="px-5 pb-5" style="display:none">
+            <div class="flex items-start gap-3 border-t border-border pt-4">
+              <span class="bg-dark text-white w-7 h-7 rounded-full flex items-center justify-center text-xs font-black shrink-0 mt-0.5">A</span>
+              <p class="text-text-light text-sm leading-relaxed">{faq.answer}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 15. 対応エリア ═══ -->
+<section class="py-12 md:py-20 bg-dark text-white">
+  <div class="max-w-5xl mx-auto px-5">
+    <h2 class="text-xl md:text-3xl font-black text-center mb-3 reveal">名古屋市全域・近郊に対応</h2>
+    <p class="text-white/60 text-sm text-center mb-10 reveal">出張費無料でお伺いします</p>
+    <div class="reveal">
+      <h3 class="text-gold font-bold text-sm mb-3">名古屋市</h3>
+      <div class="flex flex-wrap gap-2 mb-6">
+        {company.areas.map(a => (
+          <span class="bg-white/10 text-white/80 text-xs px-3 py-1.5 rounded-full border border-white/10">{a}</span>
+        ))}
+      </div>
+      <h3 class="text-gold font-bold text-sm mb-3">近郊エリア</h3>
+      <div class="flex flex-wrap gap-2">
+        {company.nearby.map(a => (
+          <span class="bg-white/10 text-white/80 text-xs px-3 py-1.5 rounded-full border border-white/10">{a}</span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 16. 最終CTA ═══ -->
+<section class="hidden md:block py-20 bg-dark text-white text-center">
+  <div class="max-w-3xl mx-auto px-5">
+    <p class="text-gold-light font-black text-sm uppercase tracking-widest mb-3">CONTACT US</p>
+    <h2 class="text-4xl font-black mb-4">まずはお気軽に<br><span class="text-gold-light">ご相談ください</span></h2>
+    <p class="text-white/80 text-base mb-8 max-w-md mx-auto">出張費・査定費は完全無料。金相場が高い今、お手元の金・ブランド品の価値を確かめてみませんか？</p>
+    <div class="flex flex-row gap-4 justify-center mb-6">
+      <a href={`tel:${company.phone}`} class="cta-glow bg-gold hover:bg-gold-light text-dark font-black text-xl px-10 py-5 rounded-2xl shadow-2xl transition-colors">電話で無料相談する</a>
+      <a href={company.line} target="_blank" rel="noopener noreferrer" class="cta-glow-line bg-line hover:brightness-110 text-white font-black text-xl px-10 py-5 rounded-2xl shadow-2xl transition-all">LINEで無料査定</a>
+    </div>
+    <p class="text-white/50 text-xs">受付 {company.hours} ／ 出張費・査定費0円 ／ {company.license}</p>
+  </div>
+</section>
+<!-- モバイル版CTA -->
+<section class="md:hidden bg-dark text-white text-center px-5 py-10">
+  <p class="text-gold-light font-black text-xs uppercase tracking-widest mb-2">CONTACT US</p>
+  <h2 class="text-xl font-black mb-3">まずはお気軽に<br><span class="text-gold-light">ご相談ください</span></h2>
+  <p class="text-white/70 text-[12px] mb-5">出張費・査定費は完全無料。</p>
+  <div class="flex gap-3 mb-3">
+    <a href={`tel:${company.phone}`} class="cta-glow flex-1 bg-gold text-dark font-black text-sm py-3.5 rounded-xl shadow-lg">電話で無料相談</a>
+    <a href={company.line} target="_blank" rel="noopener noreferrer" class="cta-glow-line flex-1 bg-line text-white font-bold text-sm py-3.5 rounded-xl shadow-lg">LINEで査定</a>
+  </div>
+  <p class="text-white/30 text-[9px]">受付 {company.hours} / {company.license}</p>
+</section>
+
+</main>
+
+<!-- ═══ フッター ═══ -->
+<footer class="bg-dark-dark text-white/50 py-12">
+  <div class="max-w-6xl mx-auto px-5 md:flex md:justify-between gap-10">
+    <div class="mb-8 md:mb-0">
+      <div class="flex items-center gap-2 mb-3">
+        <img src={logo} alt="徳丸商会" width="32" height="32" class="w-8 h-8" loading="lazy" />
+        <span class="text-white/80 font-black text-base">徳丸商会</span>
+      </div>
+      <p class="text-xs mb-1">名古屋の金・ブランド品買取専門</p>
+      <p class="text-xs mb-1">{company.license}</p>
+      <p class="text-xs">受付 {company.hours}</p>
+    </div>
+    <div class="grid grid-cols-2 gap-8 text-xs">
+      <div>
+        <p class="text-white/30 text-xs mb-3 font-bold uppercase tracking-widest">Contact</p>
+        <a href={`tel:${company.phone}`} class="block hover:text-white/70 transition-colors py-2 font-bold text-white/60">{company.phone}</a>
+        <a href={company.line} target="_blank" rel="noopener noreferrer" class="block hover:text-white/70 transition-colors py-2">LINE無料相談</a>
+        <p class="text-white/30 pt-2">{company.hours}</p>
+      </div>
+      <div>
+        <p class="text-white/30 text-xs mb-3 font-bold uppercase tracking-widest">Menu</p>
+        <nav class="flex flex-col gap-1">
+          <a href={sectionPath("gold-price")} class="hover:text-white/70 transition-colors py-1.5">金相場</a>
+          <a href={sectionPath("brand")} class="hover:text-white/70 transition-colors py-1.5">ブランド品</a>
+          <a href={sectionPath("flow")} class="hover:text-white/70 transition-colors py-1.5">ご依頼の流れ</a>
+          <a href={sectionPath("faq")} class="hover:text-white/70 transition-colors py-1.5">FAQ</a>
+          <a href={privacyPolicyPath} class="hover:text-white/70 transition-colors py-1.5">プライバシーポリシー</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-6xl mx-auto px-5 mt-8 pt-6 border-t border-white/5 pb-20 md:pb-0 text-center text-xs text-white/20">
+    &copy; {new Date().getFullYear()} 徳丸商会
+  </div>
+</footer>
+
+<!-- ═══ フローティングCTA（モバイル） ═══ -->
+<div
+  x-data="{ show: false }"
+  x-init="window.addEventListener('scroll', () => { show = window.scrollY > 500 })"
+  x-show="show"
+  x-transition:enter="transition ease-out duration-300"
+  x-transition:enter-start="translate-y-full opacity-0"
+  x-transition:enter-end="translate-y-0 opacity-100"
+  x-transition:leave="transition ease-in duration-200"
+  x-transition:leave-start="translate-y-0 opacity-100"
+  x-transition:leave-end="translate-y-full opacity-0"
+  class="fixed bottom-0 inset-x-0 z-50 md:hidden bg-dark/95 backdrop-blur border-t border-gold/40 shadow-2xl"
+  style="display:none"
+>
+  <div class="overflow-hidden bg-dark py-1.5">
+    <div class="floating-marquee whitespace-nowrap text-white text-[11px] font-bold">
+      <span class="px-4">出張費0円</span>
+      <span class="px-4 text-gold-light">金相場毎日更新</span>
+      <span class="px-4">年中無休 {company.hours}</span>
+      <span class="px-4 text-gold-light">その場で現金</span>
+      <span class="px-4">ブランド品もOK</span>
+      <span class="px-4 text-gold-light">キャンセル無料</span>
+      <span class="px-4">出張費0円</span>
+      <span class="px-4 text-gold-light">金相場毎日更新</span>
+    </div>
+  </div>
+  <div class="flex gap-2.5 px-4 py-3 bg-white border-t border-border">
+    <a href={`tel:${company.phone}`} class="flex-1 bg-gold text-dark rounded-xl py-3 text-center shadow-lg">
+      <p class="text-[9px] font-normal opacity-80">{company.hours}</p>
+      <p class="font-black text-base">電話で予約</p>
+      <p class="text-[9px] font-normal opacity-80">最短30分でお伺い</p>
+    </a>
+    <a href={company.line} target="_blank" rel="noopener noreferrer" class="flex-1 bg-line text-white rounded-xl py-3 text-center shadow-lg">
+      <p class="text-[9px] font-normal opacity-80">今すぐかんたん</p>
+      <p class="font-black text-base">LINE査定</p>
+      <p class="text-[9px] font-normal opacity-80">24時間365日OK</p>
+    </a>
+  </div>
+</div>
+
+<!-- ═══ JS ═══ -->
+<script is:inline>
+(function () {
+  function initReveal() {
+    var els = document.querySelectorAll('.reveal');
+    if (!els.length) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(function (el) { io.observe(el); });
+  }
+  function animateCount(el, target, duration) {
+    var startTime = null;
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      var progress = Math.min((timestamp - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target).toLocaleString('ja-JP');
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = target.toLocaleString('ja-JP');
+    }
+    requestAnimationFrame(step);
+  }
+  function initCountUp() {
+    var els = document.querySelectorAll('.count-up[data-target]');
+    if (!els.length) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          animateCount(entry.target, parseInt(entry.target.dataset.target, 10), 1800);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    els.forEach(function (el) { io.observe(el); });
+  }
+  window.addEventListener('load', function () {
+    setTimeout(function () { document.documentElement.classList.add('scroll-ready'); }, 500);
+  });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { initReveal(); initCountUp(); });
+  } else {
+    initReveal(); initCountUp();
+  }
+})();
+</script>
+
+</Layout>
