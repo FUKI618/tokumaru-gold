@@ -26,7 +26,7 @@ const logoUrl = new URL(assetPath("logo.svg"), siteUrl).toString();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <meta name="keywords" content="金買取,名古屋,ブランド品買取,貴金属買取,金相場,プラチナ買取,ジュエリー買取,エルメス買取,シャネル買取,出張買取" />
+    <meta name="keywords" content="金買取,名古屋,プラチナ買取,銀地金買取,貴金属買取,金相場,K24,K18,Pt900,ダイヤモンド買取,ジュエリー買取,出張買取" />
     <meta name="theme-color" content="#1a1a2e" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://googleads.g.doubleclick.net https://www.google.com https://www.google-analytics.com https://www.googleadservices.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://www.google.com https://googleads.g.doubleclick.net https://www.googleadservices.com https://www.google-analytics.com https://www.google.co.jp; connect-src 'self' https://www.google-analytics.com https://www.google.com https://googleads.g.doubleclick.net https://analytics.google.com https://fonts.googleapis.com https://fonts.gstatic.com https://region1.google-analytics.com; frame-src https://www.googletagmanager.com https://googleads.g.doubleclick.net" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
@@ -48,15 +48,15 @@ const logoUrl = new URL(assetPath("logo.svg"), siteUrl).toString();
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="徳丸商会の金・ブランド品買取。名古屋で金・プラチナ・エルメス・シャネルを高価買取。" />
-    <meta property="og:site_name" content="徳丸商会｜名古屋の金・ブランド品買取" />
+    <meta property="og:image:alt" content="徳丸商会の金・プラチナ・銀地金買取。名古屋でK24・Pt900・Sv1000・ジュエリーを毎日相場更新で高価買取。" />
+    <meta property="og:site_name" content="徳丸商会｜名古屋の金・プラチナ・銀地金買取" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content="徳丸商会の金・ブランド品買取。名古屋で金・プラチナ・エルメス・シャネルを高価買取。" />
+    <meta name="twitter:image:alt" content="徳丸商会の金・プラチナ・銀地金買取。名古屋でK24・Pt900・Sv1000・ジュエリーを毎日相場更新で高価買取。" />
 
     <!-- LCP Hero画像のプリロード -->
     <link rel="preload" as="image" type="image/webp" href={assetPath("images/gold/hero.webp")} fetchpriority="high" />
@@ -90,7 +90,7 @@ const logoUrl = new URL(assetPath("logo.svg"), siteUrl).toString();
       "@type": "LocalBusiness",
       "@id": `${homeUrl}#localbusiness`,
       "name": "徳丸商会",
-      "description": "名古屋市・近郊エリアの金・貴金属・ブランド品買取。金・プラチナ・シルバーを毎日更新の相場で高価買取。エルメス・シャネル・ルイヴィトンなどブランド品も専門査定。出張費・査定費0円。",
+      "description": "名古屋市・近郊エリアの金・プラチナ・銀地金・ジュエリー買取。K24純金・Pt1000・Sv1000など全品位を毎日更新の相場で査定。ダイヤモンド・宝石付きの貴金属も専門対応。出張費・査定費0円。",
       "telephone": company.phone,
       "url": homeUrl,
       "image": ogImage,
@@ -107,12 +107,6 @@ const logoUrl = new URL(assetPath("logo.svg"), siteUrl).toString();
         "latitude": "35.1709",
         "longitude": "136.8815"
       },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "reviewCount": "387",
-        "bestRating": "5"
-      },
       "contactPoint": {
         "@type": "ContactPoint",
         "contactType": "customer support",
@@ -127,15 +121,12 @@ const logoUrl = new URL(assetPath("logo.svg"), siteUrl).toString();
       "sameAs": [company.line],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
-        "name": "金・ブランド品買取サービス",
+        "name": "金・プラチナ・銀地金買取サービス",
         "itemListElement": [
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "金・K24純金の買取" } },
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "プラチナ製品の買取" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "シルバー製品の買取" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "銀地金・シルバー製品の買取" } },
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "ダイヤモンド・宝石の買取" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "ブランドバッグの買取" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "ブランド時計の買取" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "ブランドジュエリーの買取" } },
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "金貨・インゴットの買取" } }
         ]
       }
@@ -148,13 +139,13 @@ const logoUrl = new URL(assetPath("logo.svg"), siteUrl).toString();
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "HowTo",
-      "name": "名古屋で金・ブランド品の出張買取を依頼する方法",
+      "name": "名古屋で金・プラチナ・銀地金の出張買取を依頼する方法",
       "description": "徳丸商会の出張買取サービスを利用する手順です。お電話またはLINEでのお問い合わせから、訪問査定、現金お支払いまでかんたん3ステップで完了します。",
       "totalTime": "PT1H",
       "estimatedCost": { "@type": "MonetaryAmount", "currency": "JPY", "value": "0" },
       "step": [
         { "@type": "HowToStep", "position": 1, "name": "お電話・LINEでお問い合わせ", "text": "買取希望のお品物や訪問日時をお伝えください。LINEなら写真を送るだけで事前査定も可能です。052-990-3968まで。" },
-        { "@type": "HowToStep", "position": 2, "name": "ご訪問・査定・現金払い", "text": "査定員がご自宅にお伺いし、金の品位測定やブランド品の真贋鑑定を行います。金額にご納得いただければ、その場で現金をお渡しします。" },
+        { "@type": "HowToStep", "position": 2, "name": "ご訪問・査定・現金払い", "text": "査定員がご自宅にお伺いし、金・プラチナ・銀の品位測定や宝石の鑑定を行います。金額にご納得いただければ、その場で現金をお渡しします。" },
         { "@type": "HowToStep", "position": 3, "name": "お品物のお引き取り", "text": "買取成立したお品物をお引き取りします。キャンセル料は一切かかりません。" }
       ]
     })} />
